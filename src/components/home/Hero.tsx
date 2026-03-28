@@ -3,7 +3,7 @@ import { PhoneCall } from 'lucide-react'
 
 export default function Hero() {
   return (
-    <section className="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[50vh] lg:h-[60vh] flex items-center justify-center overflow-hidden">
       {/* Background Video */}
       <video
         src="/assets/trailer.mp4"

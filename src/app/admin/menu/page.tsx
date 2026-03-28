@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { UtensilsCrossed, Plus, Trash2, Edit, Upload, ImageIcon, List, Package, ChevronDown } from "lucide-react";
+import { getStrictCategory } from "@/lib/menuUtils";
 
 export default function MenuManagement() {
   const [items, setItems] = useState<any[]>([]);
@@ -178,18 +179,31 @@ export default function MenuManagement() {
   const getCurrency = () => 'EGP';
   const getFlag = () => '🇪🇬';
 
-  const categoryList = ['الكل', ...categories.map(c => c.name)];
+  // ── Robust Grouping Logic (Strict Fallback Pattern) ──
+  const groupedItems = useMemo(() => {
+    return items.reduce((acc, item) => {
+      const catName = getStrictCategory(item);
+      if (!acc[catName]) acc[catName] = [];
+      acc[catName].push(item);
+      return acc;
+    }, {} as Record<string, any[]>);
+  }, [items]);
 
-  const filteredItems = activeCategory === "الكل" 
-    ? items 
-    : items.filter(item => {
-        const catName = typeof item.category === 'object' ? item.category?.name : item.category;
-        return catName === activeCategory;
-      });
+  // Dynamically derive category list from the actual items + "الكل"
+  const categoryList = useMemo(() => {
+    const uniqueCats = Array.from(new Set(items.map(i => getStrictCategory(i))));
+    return ['الكل', ...uniqueCats.sort()];
+  }, [items]);
+
+  // Handle filtering for Admin view
+  const displayedItems = useMemo(() => {
+    if (activeCategory === "الكل") return items;
+    return items.filter(item => getStrictCategory(item) === activeCategory);
+  }, [items, activeCategory]);
 
   return (
-    <div>
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+    <div className="p-4 md:p-8 max-w-[1600px] mx-auto space-y-10" dir="rtl">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-2">
         <h1 className="text-3xl font-bold text-white flex items-center gap-3">
           <UtensilsCrossed className="h-8 w-8 text-primary" />
           إدارة المنيو
@@ -199,77 +213,113 @@ export default function MenuManagement() {
         </Button>
       </div>
 
-      {/* Category Tabs (Phase 9) */}
-      <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-4 no-scrollbar scroll-smooth">
-        {categoryList.map(cat => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`px-5 py-2.5 rounded-xl font-black text-sm transition-all whitespace-nowrap active:scale-95 shadow-lg border ${
-              activeCategory === cat 
-                ? "bg-primary text-white border-primary shadow-primary/20" 
-                : "bg-secondary/40 text-gray-400 border-white/5 hover:border-white/10"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+      {/* ── Physically Rendered Category Tabs (Non-Negotiable UI) ── */}
+      <div className="relative z-40 bg-background/40 backdrop-blur-xl py-4 border-b border-white/5 no-scrollbar">
+        <div className="flex overflow-x-auto flex-nowrap gap-3 no-scrollbar pb-2">
+          {categoryList.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`whitespace-nowrap px-6 py-2.5 rounded-xl text-sm font-black transition-all duration-300 active:scale-95 border ${
+                activeCategory === cat
+                  ? "bg-[#F97316] text-white border-[#F97316] shadow-lg shadow-primary/20"
+                  : "bg-white/5 text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="space-y-12">
         {loading ? (
-          <div className="col-span-full text-center text-gray-400 py-12">جاري التحميل...</div>
-        ) : filteredItems.length === 0 ? (
-          <div className="col-span-full text-center text-gray-500 py-12 bg-secondary/20 rounded-2xl border border-white/5 border-dashed">
-            لا توجد أصناف في هذا القسم حالياً.
+          <div className="text-center text-gray-400 py-20 flex flex-col items-center gap-6">
+            <div className="h-12 w-12 border-4 border-primary border-t-transparent rounded-full animate-spin shadow-lg shadow-primary/20" />
+            <span className="text-lg font-bold">جاري تحميل قائمة المنيو...</span>
           </div>
         ) : (
-          filteredItems.map(item => (
-            <Card key={item._id} className="bg-secondary/40 border-white/10 overflow-hidden hover:border-white/20 transition-colors flex flex-col">
-              {item.image && (
-                <div className="h-48 w-full bg-white/5 overflow-hidden">
-                  <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform hover:scale-110 duration-500" />
-                </div>
-              )}
-              <CardContent className="p-5 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-2 gap-4">
-                  <div className="flex flex-col gap-1 items-start">
-                    <h3 className="text-xl font-bold text-white leading-tight">{item.name}</h3>
-                    {item.recipe && item.recipe.length > 0 && (
-                      <span className="flex items-center gap-1 text-[10px] font-black text-green-400 bg-green-400/10 px-2 py-0.5 rounded-md border border-green-400/20">
-                        <Package className="h-2.5 w-2.5" /> ريسبي ✓
-                      </span>
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-500">
+            {/* Context Header */}
+            <div className="flex items-center gap-6 opacity-60">
+                <h2 className="text-2xl font-black text-white whitespace-nowrap">
+                   {activeCategory}
+                </h2>
+                <div className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent" />
+                <span className="text-xs font-bold text-gray-500 uppercase tracking-widest bg-white/5 px-4 py-1.5 rounded-full border border-white/5">
+                   {displayedItems.length} صنف
+                </span>
+            </div>
+
+            {/* Main Item Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {displayedItems.map((item: any) => (
+                <Card key={item._id} className="bg-secondary/20 border-white/5 overflow-hidden hover:border-primary/30 transition-all duration-300 flex flex-col group backdrop-blur-sm rounded-[1.5rem] shadow-xl">
+                  {item.image && (
+                    <div className="h-48 w-full bg-white/5 overflow-hidden relative">
+                      <img 
+                        src={item.image} 
+                        alt={item.name} 
+                        className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-700" 
+                      />
+                      <div className="absolute top-4 right-4">
+                         <span className="text-[10px] font-black text-white bg-black/60 backdrop-blur-md px-2.5 py-1.5 rounded-lg border border-white/10 shadow-lg">
+                           {item._id.slice(-6).toUpperCase()}
+                         </span>
+                      </div>
+                    </div>
+                  )}
+                  <CardContent className="p-6 flex-1 flex flex-col">
+                    <div className="flex justify-between items-start mb-4 gap-4">
+                      <div className="flex flex-col gap-2 items-start">
+                        <h3 className="text-xl font-black text-white leading-tight group-hover:text-primary transition-colors">
+                          {item.name}
+                        </h3>
+                        {item.recipe && item.recipe.length > 0 && (
+                          <span className="flex items-center gap-1.5 text-[10px] font-black text-green-400 bg-green-400/10 px-2.5 py-1 rounded-lg border border-green-400/20 shadow-sm shadow-green-400/10">
+                            <Package className="h-3 w-3" /> ريسبي مفعل ✓
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-primary font-black bg-primary/10 px-4 py-2 rounded-xl text-lg shadow-inner border border-primary/10">
+                        {item.price} <span className="text-xs opacity-70">{getCurrency()}</span>
+                      </div>
+                    </div>
+                    
+                    {item.description && (
+                      <p className="text-gray-500 text-sm mb-6 line-clamp-2 leading-relaxed">
+                        {item.description}
+                      </p>
                     )}
-                  </div>
-                  <span className="text-primary font-black bg-primary/10 px-3 py-1 rounded-lg text-sm whitespace-nowrap">
-                    {item.price} {getCurrency()}
-                  </span>
-                </div>
-                {item.description && (
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">{item.description}</p>
-                )}
-                <div className="flex justify-between items-center text-sm font-medium mt-auto mb-4">
-                  <span className="bg-white/10 text-gray-300 px-3 py-1 rounded-full">
-                    {typeof item.category === 'object' ? item.category?.name : item.category}
-                  </span>
-                  <span className="text-gray-400 flex items-center gap-1">
-                    {getFlag()} {item.country}
-                  </span>
-                </div>
-                
-                <div className="flex justify-between items-center text-sm font-medium pt-4 border-t border-white/10">
-                  <div className="flex gap-3 w-full">
-                    <Button onClick={() => openEditModal(item)} variant="outline" size="sm" className="flex-1 h-9 border-primary text-primary hover:bg-primary hover:text-white transition-colors bg-primary/5 rounded-lg flex gap-2">
-                      <Edit className="h-4 w-4" /> تعديل
-                    </Button>
-                    <Button onClick={() => handleDelete(item._id)} size="sm" className="flex-1 h-9 bg-destructive/20 text-destructive hover:bg-destructive hover:text-white transition-colors rounded-lg flex gap-2">
-                      <Trash2 className="h-4 w-4" /> حذف
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))
+                    
+                    <div className="flex justify-between items-center text-sm font-medium mt-auto mb-6">
+                      <span className="bg-white/5 text-gray-400 px-3 py-1.5 rounded-full text-xs border border-white/5">
+                        {getStrictCategory(item)}
+                      </span>
+                      <span className="text-gray-500 flex items-center gap-2 text-xs font-bold">
+                        {getFlag()} {item.country}
+                      </span>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3 pt-6 border-t border-white/5">
+                      <button 
+                        onClick={() => openEditModal(item)} 
+                        className="h-11 border border-primary/20 text-primary hover:bg-primary hover:text-white transition-all bg-primary/5 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/5 active:scale-95"
+                      >
+                        <Edit className="h-4 w-4" /> تعديل
+                      </button>
+                      <button 
+                        onClick={() => handleDelete(item._id)} 
+                        className="h-11 bg-destructive/10 text-destructive hover:bg-destructive hover:text-white transition-all rounded-xl flex items-center justify-center gap-2 text-sm font-bold shadow-lg shadow-destructive/5 active:scale-95"
+                      >
+                        <Trash2 className="h-4 w-4" /> حذف
+                      </button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
         )}
       </div>
 

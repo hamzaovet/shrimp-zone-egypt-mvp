@@ -2,7 +2,6 @@
 
 import Hero from '@/components/home/Hero'
 import DynamicMenu from '@/components/home/DynamicMenu'
-import SonarHub from '@/components/home/SonarHub'
 import Footer from '@/components/layout/Footer'
 
 export default function HomeView() {
@@ -12,7 +11,6 @@ export default function HomeView() {
       <div id="menu">
         <DynamicMenu />
       </div>
-      <SonarHub />
       <Footer />
     </div>
   )

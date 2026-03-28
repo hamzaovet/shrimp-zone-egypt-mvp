@@ -8,6 +8,7 @@ import {
   Save, TableProperties, X, Search, MapPin, Bell, Percent, Tag, ClipboardList, Clock
 
 } from "lucide-react";
+import { getStrictCategory } from "@/lib/menuUtils";
 
 // Default POS branch (overridden by cashier session)
 const DEFAULT_POS_BRANCH = "محطة الرمل";
@@ -321,10 +322,10 @@ export default function POSPage() {
     };
   }, []);
 
-  const categories = useMemo(
-    () => ["الكل", ...categoriesData.map(c => c.name)],
-    [categoriesData]
-  );
+  const categories = useMemo(() => {
+    const names = menuItems.map(i => getStrictCategory(i));
+    return ["الكل", ...Array.from(new Set(names))];
+  }, [menuItems]);
 
   useEffect(() => {
     if (categories.length > 0 && !categories.includes(activeCategory)) {
@@ -335,7 +336,7 @@ export default function POSPage() {
   const currentItems = useMemo(
     () => activeCategory === "الكل" 
       ? menuItems 
-      : menuItems.filter(i => (typeof i.category === 'object' ? i.category?.name : i.category) === activeCategory),
+      : menuItems.filter(i => getStrictCategory(i) === activeCategory),
     [menuItems, activeCategory]
   );
 
@@ -1205,7 +1206,7 @@ export default function POSPage() {
           </div>
 
           {/* Categories */}
-          <div className="flex overflow-x-auto gap-2 px-4 py-3 border-b border-slate-800/50 bg-slate-900/30 shrink-0 scrollbar-hide">
+          <div className="flex overflow-x-auto flex-nowrap gap-3 px-4 py-3 border-b border-slate-800/50 bg-slate-900/30 shrink-0 no-scrollbar">
             {categories.map((cat) => (
               <button
                 key={cat}

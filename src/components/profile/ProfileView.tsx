@@ -225,23 +225,7 @@ export default function ProfileView() {
                   </div>
                 ))}
               </div>
-            ) : (
-              <div className="p-12 text-center">
-                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/5">
-                  <Package className="h-8 w-8 text-gray-600" />
-                </div>
-                <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                  بحر الجمبري بيناديك! <br/>
-                  سجل أول طلب ليك دلوقتي وشوفه هنا.
-                </p>
-                <Button 
-                  onClick={() => setActiveTab('home')}
-                  className="bg-primary hover:bg-primary/90 text-white rounded-2xl font-black px-8 py-6 h-auto shadow-lg shadow-primary/20"
-                >
-                  اطلب الآن 🍤
-                </Button>
-              </div>
-            )}
+            ) : null}
           </div>
         </section>
 

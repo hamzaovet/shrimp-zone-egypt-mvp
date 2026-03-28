@@ -6,10 +6,18 @@ import { motion } from "framer-motion";
 import { LOCATIONS } from "@/lib/data";
 
 const categories = [
-  { id: "trays", name: "الصواني", icon: Waves, color: "text-orange-400" },
   { id: "meals", name: "الوجبات", icon: Fish, color: "text-blue-400" },
-  { id: "casseroles", name: "الطواجن", icon: Waves, color: "text-red-500" },
-  { id: "sandwiches", name: "السندوتشات", icon: Ship, color: "text-yellow-400" },
+  { id: "trays", name: "الصواني", icon: Waves, color: "text-orange-400" },
+  { id: "offers", name: "عرض الصواني", icon: Ship, color: "text-yellow-500" },
+  { id: "mini-trays", name: "الميني صواني", icon: Waves, color: "text-cyan-400" },
+  { id: "casseroles", name: "الطواجن", icon: Fish, color: "text-red-500" },
+  { id: "soups", name: "الشوربة", icon: Waves, color: "text-blue-300" },
+  { id: "pastas", name: "الباستا", icon: Ship, color: "text-indigo-400" },
+  { id: "rice", name: "الأرز", icon: Fish, color: "text-yellow-400" },
+  { id: "sandwiches", name: "السندوتشات", icon: Ship, color: "text-orange-500" },
+  { id: "salads", name: "السلطات والصوصات", icon: Waves, color: "text-green-400" },
+  { id: "appetizers", name: "المقبلات", icon: Fish, color: "text-emerald-400" },
+  { id: "drinks", name: "المشروبات", icon: Waves, color: "text-blue-500" },
 ];
 
 export default function SonarHub() {
