@@ -35,7 +35,7 @@ export default function CheckoutDialog({ open, onOpenChange, targetPhone, curren
   const { cartItems, cartTotal, clearCart } = useCart();
   const { customer: authCustomer } = useCustomerAuth();
 
-  const [customer, setCustomer] = useState<CustomerData>({ name: "", address: "", phone: "", branch: branchName || "" });
+  const [customer, setCustomer] = useState<CustomerData>({ name: "", address: "", phone: "", branch: branchName || "شيراتون (سكاي لاين)" });
   const [errors, setErrors] = useState<Partial<Record<keyof CustomerData, string>>>({});
   const [isSending, setIsSending] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);

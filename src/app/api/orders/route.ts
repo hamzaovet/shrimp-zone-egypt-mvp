@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       const order = new Order({
         ...body,
         orderNumber: orderNumber,
-        branch: body.branch || "محطة الرمل",
+        branch: body.branch || "شيراتون (سكاي لاين)",
         customerName: body.customerName || "عميل أونلاين",
         customerPhone: body.customerPhone || "0000000000",
         address: body.address || "استلام من الفرع",

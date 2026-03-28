@@ -14,7 +14,8 @@ export const BRANCH_STORAGE_KEY = "shrimpZoneBranch";
 
 export function getStoredBranch(): string {
   if (typeof window === "undefined") return "";
-  return localStorage.getItem(BRANCH_STORAGE_KEY) || "";
+  const stored = localStorage.getItem(BRANCH_STORAGE_KEY) || "شيراتون (سكاي لاين)";
+  return stored === "شيراتون 1" ? "شيراتون (سكاي لاين)" : stored;
 }
 
 export function setStoredBranch(branch: string) {

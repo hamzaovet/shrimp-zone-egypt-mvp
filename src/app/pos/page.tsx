@@ -11,7 +11,7 @@ import {
 import { getStrictCategory } from "@/lib/menuUtils";
 
 // Default POS branch (overridden by cashier session)
-const DEFAULT_POS_BRANCH = "محطة الرمل";
+const DEFAULT_POS_BRANCH = "شيراتون (سكاي لاين)";
 
 // ── Types ──
 interface MenuItem {
@@ -61,7 +61,8 @@ interface ToastMessage {
 export default function POSPage() {
   const { data: session } = useSession();
   const userBranch = (session?.user as any)?.assignedBranch;
-  const POS_BRANCH = userBranch || DEFAULT_POS_BRANCH;
+  const rawBranch = userBranch || DEFAULT_POS_BRANCH;
+  const POS_BRANCH = rawBranch === 'شيراتون 1' ? 'شيراتون (سكاي لاين)' : rawBranch;
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -237,7 +238,7 @@ export default function POSPage() {
           if (pending > prevPendingRef.current && prevPendingRef.current >= 0) {
             // New order arrived — Royal Whistle!
              try {
-               const audio = new Audio('/assets/doordash.mp3');
+               const audio = new Audio('/assets/notification.mp3');
                audio.volume = 0.6;
                audio.play().catch(err => {
                  console.warn("Audio playback blocked: interaction needed.", err);
@@ -452,7 +453,7 @@ export default function POSPage() {
       orderType: typeLabel,
       paymentMethod: 'آجل',
       status: 'جديد',
-      branch: POS_BRANCH || "محطة الرمل",
+      branch: POS_BRANCH || "شيراتون (سكاي لاين)",
       source: "POS",
       customerName: resolvedName,
       customerPhone: customerPhone.trim() || "POS",
@@ -660,7 +661,7 @@ export default function POSPage() {
         },
         orderType: typeLabel,
         paymentMethod: method,
-        branch: POS_BRANCH || "محطة الرمل",
+        branch: POS_BRANCH || "شيراتون (سكاي لاين)",
         source: "POS",
         customerName: resolvedName,
         customerPhone: customerPhone.trim() || "POS",

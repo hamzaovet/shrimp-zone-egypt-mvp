@@ -45,7 +45,10 @@ const KDSPage = () => {
 
   const fetchOrders = async () => {
     try {
-      const branch = typeof window !== 'undefined' ? localStorage.getItem('shrimpZoneBranch') || '' : '';
+      let branch = typeof window !== 'undefined' ? localStorage.getItem('shrimpZoneBranch') || 'شيراتون (سكاي لاين)' : 'شيراتون (سكاي لاين)';
+      // Force "شيراتون (سكاي لاين)" if it's still pointing to the old name
+      if (branch === 'شيراتون 1') branch = 'شيراتون (سكاي لاين)';
+
       const res = await fetch(`/api/kitchen?branch=${encodeURIComponent(branch)}`);
       if (res.ok) {
         const data: Order[] = await res.json();
