@@ -25,7 +25,7 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const savedCustomer = localStorage.getItem("bahij_customer");
+    const savedCustomer = localStorage.getItem("shrimp_zone_customer");
     if (savedCustomer) {
       try {
         setCustomer(JSON.parse(savedCustomer));
@@ -48,7 +48,7 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
       if (res.ok) {
         const data = await res.json();
         setCustomer(data);
-        localStorage.setItem("bahij_customer", JSON.stringify(data));
+        localStorage.setItem("shrimp_zone_customer", JSON.stringify(data));
       } else {
         const error = await res.json();
         throw new Error(error.message || "Failed to login");
@@ -60,7 +60,7 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
 
   const logout = () => {
     setCustomer(null);
-    localStorage.removeItem("bahij_customer");
+    localStorage.removeItem("shrimp_zone_customer");
   };
 
   return (

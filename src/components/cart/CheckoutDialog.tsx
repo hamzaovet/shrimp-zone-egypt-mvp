@@ -14,7 +14,7 @@ import { EGYPT_BRANCHES, setStoredBranch } from "@/lib/branches";
 
 import { useCustomerAuth } from "@/lib/CustomerAuthContext";
 
-const STORAGE_KEY = "bahijCustomer";
+const STORAGE_KEY = "shrimp_zone_customer";
 
 interface CustomerData {
   name: string;

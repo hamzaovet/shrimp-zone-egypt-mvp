@@ -226,7 +226,7 @@ export default function AdminOverview() {
       return [id, date, customer, type, status, total];
     });
 
-    exportToExcel(data, headers, "Bahij_ERP_Report");
+    exportToExcel(data, headers, "Shrimp_Zone_ERP_Report");
   };
 
   if (loading) {

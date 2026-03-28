@@ -13,7 +13,7 @@
     --popover: 226 50% 15%;
     --popover-foreground: 0 0% 100%;
     
-    --primary: 14 100% 57%; /* #FF5722 Bahij Orange/Red */
+    --primary: 201 96% 32%; /* #0369a1 Marine Blue */
     --primary-foreground: 0 0% 100%;
     
     --secondary: 226 40% 20%;
@@ -22,7 +22,7 @@
     --muted: 226 40% 20%;
     --muted-foreground: 215 20.2% 65.1%;
     
-    --accent: 14 100% 57%;
+    --accent: 201 96% 32%;
     --accent-foreground: 0 0% 100%;
     
     --destructive: 0 62.8% 30.6%;
@@ -30,7 +30,7 @@
     
     --border: 226 50% 20%;
     --input: 226 50% 20%;
-    --ring: 14 100% 57%;
+    --ring: 201 96% 32%;
     
     --radius: 0.5rem;
   }

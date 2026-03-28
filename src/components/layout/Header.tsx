@@ -41,7 +41,7 @@ export default function Header() {
         {/* LOGO */}
         <div className="flex shrink-0 items-center">
           <div className="relative">
-            <img src="/assets/bahij-logo.png" alt="بهيج ملك الفسفور العجيب" style={{ width: 'auto', height: '40px' }} className="object-contain" />
+            <img src="/assets/logo.png" alt="شرمب زون - Shrimp Zone" style={{ width: 'auto', height: '40px' }} className="object-contain" />
           </div>
         </div>
 
@@ -50,7 +50,7 @@ export default function Header() {
           {/* Hotline pill (Visible on Mobile) */}
           <div className="flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full border border-primary/20">
             <span className="text-white font-bold text-[10px] sm:text-xs">الخط الساخن:</span>
-            <span className="text-primary font-black text-xs sm:text-sm">19274</span>
+            <span className="text-primary font-black text-xs sm:text-sm">15911</span>
           </div>
 
           {/* Delivery Status Badge */}
@@ -72,7 +72,7 @@ export default function Header() {
           >
             <ShoppingBag className="h-5 w-5" />
             {isHydrated && cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 bg-[#FF5722] text-white text-xs font-bold rounded-full flex items-center justify-center shadow-md animate-in zoom-in">
+              <span className="absolute -top-1 -right-1 h-5 w-5 bg-primary text-white text-xs font-bold rounded-full flex items-center justify-center shadow-md animate-in zoom-in">
                 {cartCount}
               </span>
             )}

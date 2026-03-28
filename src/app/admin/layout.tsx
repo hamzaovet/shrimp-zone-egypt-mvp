@@ -42,7 +42,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className="w-full md:w-64 bg-secondary/30 border-l border-white/10 md:min-h-screen flex flex-col">
         <div className="p-6 border-b border-white/10 flex justify-center">
           <div className="relative">
-            <img src="/assets/bahij-logo.png" alt="بهيج ملك الفسفور العجيب" style={{ width: 'auto', height: '40px' }} className="object-contain" />
+            <img src="/assets/logo.png" alt="شرمب زون ملك الجمبري" style={{ width: 'auto', height: '40px' }} className="object-contain" />
           </div>
         </div>
         <nav className="flex-1 p-4 space-y-2">

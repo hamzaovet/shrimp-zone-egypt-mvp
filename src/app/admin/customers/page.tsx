@@ -36,7 +36,7 @@ export default function CustomersPage() {
       c.totalSpent,
       new Date(c.createdAt).toLocaleDateString("ar-EG")
     ]);
-    exportToExcel(data, headers, "Bahij_Customers_CRM");
+    exportToExcel(data, headers, "Shrimp_Zone_Customers_CRM");
   };
 
   const filteredCustomers = customers.filter(c => 

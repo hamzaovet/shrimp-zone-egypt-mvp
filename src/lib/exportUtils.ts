@@ -22,7 +22,7 @@ export const exportToExcel = (data: any[][], headers: string[], filename: string
   ws['!cols'] = colWidths;
 
   // Append the sheet to the workbook
-  XLSX.utils.book_append_sheet(wb, ws, "Bahij Report");
+  XLSX.utils.book_append_sheet(wb, ws, "Shrimp Zone Report");
 
   // Trigger browser download
   const timestamp = new Date().toISOString().split('T')[0];

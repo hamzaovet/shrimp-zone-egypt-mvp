@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
         customerPhone: body.customerPhone || "0000000000",
         address: body.address || "استلام من الفرع",
         
-        // ── ERP Normalization (Bahij Web Flow Fix) ──
+        // ── ERP Normalization (Shrimp Zone Web Flow Fix) ──
         orderType: body.orderType || 'delivery',
         paymentMethod: body.paymentMethod || 'Cash',
         taxAmount: body.taxAmount || 0,
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
       });
 
       await order.save();
-      console.log('Order Saved to Bahij DB:', order._id);
+      console.log('Order Saved to Shrimp Zone DB:', order._id);
 
       // ── AUTO STOCK DEDUCTION (Phase 4) ──
       try {

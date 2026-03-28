@@ -1174,7 +1174,7 @@ export default function POSPage() {
                 <Utensils className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h1 className="text-lg font-black text-white leading-tight">نظام بهيج (POS)</h1>
+                <h1 className="text-lg font-black text-white leading-tight">نظام شرمب زون (POS)</h1>
                 <p className="text-[11px] text-gray-500 font-medium">نظام نقاط البيع — مصر 🇪🇬</p>
               </div>
             </div>
@@ -1822,7 +1822,7 @@ export default function POSPage() {
             <div className="flex-1">
               <p className="text-sm font-black leading-tight">{toast.message}</p>
               <div className="h-1 bg-slate-800 rounded-full mt-2 overflow-hidden">
-                <div className="h-full bg-green-500 animate-out fade-out fill-mode-forwards duration-[5000ms]" style={{ width: '100%' }}></div>
+                <div className="h-full bg-green-500 animate-out fade-out fill-mode-forwards duration-1000" style={{ width: '100%' }}></div>
               </div>
             </div>
             <button 

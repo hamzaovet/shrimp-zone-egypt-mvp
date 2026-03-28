@@ -90,7 +90,7 @@ export default function ProfileView() {
           <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-primary/20">
             <UserPlus className="h-10 w-10 text-primary" />
           </div>
-          <h2 className="text-3xl font-black text-white mb-2">انضم لعائلة بهيج</h2>
+          <h2 className="text-3xl font-black text-white mb-2">انضم لعائلة شرمب زون</h2>
           <p className="text-gray-400 text-sm">سجل دخولك برقم هاتفك لمتابعة طلباتك وعروضك</p>
         </div>
 
@@ -136,7 +136,7 @@ export default function ProfileView() {
         </form>
 
         <p className="mt-8 text-center text-[10px] text-gray-500 leading-relaxed px-4">
-          بالتسجيل، أنت توافق على شروط الخدمة وسياسة الخصوصية لمطاعم بهيج ملك الفسفور.
+          بالتسجيل، أنت توافق على شروط الخدمة وسياسة الخصوصية لمطاعم شرمب زون ملك الجمبري.
         </p>
       </div>
     );
@@ -160,26 +160,22 @@ export default function ProfileView() {
       </div>
 
       {/* Stats Cards - Hidden if 0 to keep it clean */}
-      {(orders.length > 0 || totalSpent > 0) && (
+      {orders.length > 0 && totalSpent > 0 && (
         <div className="grid grid-cols-2 gap-3 mb-8">
-          {orders.length > 0 && (
-            <div className="bg-white/5 border border-white/5 p-4 rounded-2xl">
-              <div className="bg-primary/10 w-8 h-8 rounded-lg flex items-center justify-center mb-2">
-                <History className="h-4 w-4 text-primary" />
-              </div>
-              <div className="text-2xl font-black text-white">{orders.length}</div>
-              <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">إجمالي الطلبات</div>
+          <div className="bg-white/5 border border-white/5 p-4 rounded-2xl">
+            <div className="bg-primary/10 w-8 h-8 rounded-lg flex items-center justify-center mb-2">
+              <History className="h-4 w-4 text-primary" />
             </div>
-          )}
-          {totalSpent > 0 && (
-            <div className="bg-white/5 border border-white/5 p-4 rounded-2xl">
-              <div className="bg-green-500/10 w-8 h-8 rounded-lg flex items-center justify-center mb-2">
-                <Wallet className="h-4 w-4 text-green-500" />
-              </div>
-              <div className="text-2xl font-black text-white">{totalSpent} <span className="text-xs">ج.م</span></div>
-              <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">إجمالي المدفوعات</div>
+            <div className="text-2xl font-black text-white">{orders.length}</div>
+            <div className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">إجمالي الطلبات</div>
+          </div>
+          <div className="bg-green-500/10 border border-green-500/5 p-4 rounded-2xl">
+            <div className="bg-green-500/10 w-8 h-8 rounded-lg flex items-center justify-center mb-2">
+              <Wallet className="h-4 w-4 text-green-500" />
             </div>
-          )}
+            <div className="text-2xl font-black text-white">{totalSpent} <span className="text-xs">ج.م</span></div>
+            <div className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">إجمالي المدفوعات</div>
+          </div>
         </div>
       )}
 
@@ -230,15 +226,19 @@ export default function ProfileView() {
                 ))}
               </div>
             ) : (
-              <div className="p-8 text-center">
-                <p className="text-gray-500 text-sm mb-4">لا توجد طلبات نشطة حالياً.</p>
+              <div className="p-12 text-center">
+                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/5">
+                  <Package className="h-8 w-8 text-gray-600" />
+                </div>
+                <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                  بحر الجمبري بيناديك! <br/>
+                  سجل أول طلب ليك دلوقتي وشوفه هنا.
+                </p>
                 <Button 
                   onClick={() => setActiveTab('home')}
-                  variant="outline" 
-                  size="sm" 
-                  className="border-primary/30 text-primary hover:bg-primary/10 rounded-xl font-bold"
+                  className="bg-primary hover:bg-primary/90 text-white rounded-2xl font-black px-8 py-6 h-auto shadow-lg shadow-primary/20"
                 >
-                  ابدأ طلبك الآن 🍤
+                  اطلب الآن 🍤
                 </Button>
               </div>
             )}
@@ -285,7 +285,7 @@ export default function ProfileView() {
       </div>
 
       <div className="mt-12 text-center text-[10px] text-gray-700 font-black uppercase tracking-[0.2em]">
-        Bahij King of Phosphorus — Premium ERP
+        Shrimp Zone — شرمب زون
       </div>
 
       {/* Custom Fun Toast */}

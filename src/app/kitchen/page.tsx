@@ -45,7 +45,7 @@ const KDSPage = () => {
 
   const fetchOrders = async () => {
     try {
-      const branch = typeof window !== 'undefined' ? localStorage.getItem('bahijBranch') || '' : '';
+      const branch = typeof window !== 'undefined' ? localStorage.getItem('shrimpZoneBranch') || '' : '';
       const res = await fetch(`/api/kitchen?branch=${encodeURIComponent(branch)}`);
       if (res.ok) {
         const data: Order[] = await res.json();

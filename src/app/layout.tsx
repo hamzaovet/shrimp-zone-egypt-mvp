@@ -13,8 +13,8 @@ import { Providers } from '@/components/Providers'
 const cairo = Cairo({ subsets: ['arabic', 'latin'], variable: '--font-cairo' })
 
 export const metadata: Metadata = {
-  title: 'بهيج ملك الفسفور العجيب - إدارة المطعم',
-  description: 'النظام الإداري لمطاعم بهيج ملك الفسفور العجيب — الطعم الأصلي للفسفور في مصر.',
+  title: 'Shrimp Zone - شرمب زون',
+  description: 'شرمب زون ملك الجمبري — أصل الجمبري في مصر وخارجها.',
 }
 
 export default function RootLayout({
