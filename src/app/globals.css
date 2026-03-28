@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 226 60% 10%; /* #0A1128 Deep Ocean Navy */
+    --foreground: 0 0% 100%;
+    
+    --card: 226 50% 15%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 226 50% 15%;
+    --popover-foreground: 0 0% 100%;
+    
+    --primary: 14 100% 57%; /* #FF5722 Bahij Orange/Red */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 226 40% 20%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 226 40% 20%;
+    --muted-foreground: 215 20.2% 65.1%;
+    
+    --accent: 14 100% 57%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 226 50% 20%;
+    --input: 226 50% 20%;
+    --ring: 14 100% 57%;
+    
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
